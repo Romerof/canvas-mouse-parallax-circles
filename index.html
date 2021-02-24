@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Parallax Circles</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+
+        const ctx = canvas.getContext("2d");
+
+        const width = canvas.width = window.innerWidth;
+        const height = canvas.height = window.innerHeight;
+
+        // "#202028"
+        function drawCanvas(color) {
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, width, height);
+        }
+
+
+        // width/2,height/2, 100 "#c1c1c135"
+        function drawCircle(x, y, r, c) {
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, 2 * Math.PI)
+            ctx.fillStyle = c;
+            ctx.fill();
+        }
+
+
+        drawCanvas("#202028");
+        drawCircle(width / 2, height / 2, 2, "red")
+        //drawCircle(width/2,height/2, 70, "#c1c1c135")
+        //drawCircle(width/2,height/2, 30, "#c1c1c135")
+
+        var drawerFlag = false;
+        window.addEventListener("mousemove", (e) => {
+
+            if (!drawerFlag) {
+                drawerFlag = true;
+                requestAnimationFrame(() => {
+
+                    const x = Math.round(((e.clientX-(width / 2)) * 0.20) + (width / 2));
+                    const y = Math.round(((e.clientX-(height / 2)) * 0.20) + (height / 2));
+                    const x2 = Math.round(((e.clientX-(width / 2)) * 0.04) + (width / 2));
+                    const y2 = Math.round(((e.clientY-(height / 2)) * 0.04) + (height / 2));
+                    const x3 = Math.round(((e.clientX-(width / 2)) * 0.02) + (width / 2));
+                    const y3 = Math.round(((e.clientY-(height / 2)) * 0.02) + (height / 2));
+                    drawCanvas("#20202850");
+                    drawCircle(x3, y3, 120, "#c1c1c150");
+                    drawCircle(x2, y2, 100, "#c1c1c150");
+                    drawCircle(x, y, 30, "#c1c1c150");
+
+                    drawerFlag = false;
+                }) //requestAnimatioFrame
+            } // if
+        }); //window.addEventListener
+
+
+
+
+
+    </script>
+</body>
+
+</html>
